@@ -155,6 +155,12 @@ gt_bind(int argc, char **argv)
         return 1;
     }
 
+    // idk
+    int fwmark = 177;
+    if (setsockopt(mud_fd, SOL_SOCKET, SO_MARK, &fwmark, sizeof(fwmark)) == -1) {
+        perror("failed to set fwmark on mud socket");
+    }
+
     if (gt_setup_secretkey(mud, keyfile))
         return 1;
 
