@@ -138,6 +138,12 @@ gt_bind(int argc, char **argv, void *data)
         gt_log("couldn't create mud\n");
         return -1;
     }
+
+    // idk
+    int fwmark = 177;
+    if (setsockopt(mud_fd, SOL_SOCKET, SO_MARK, &fwmark, sizeof(fwmark)) == -1) {
+        perror("failed to set fwmark on mud socket");
+    }
     if (!chacha && !aes)
         gt_log("AES is not available, enjoy ChaCha20!\n");
 
